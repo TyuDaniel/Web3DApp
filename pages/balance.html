@@ -3,15 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Balance</title>
+  <title>Check Balance</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
   <div class="page">
     <div class="card">
-      <h1>Balance</h1>
+      <h1>Check Balance</h1>
+
+      <!-- Role selector -->
+      <div class="role-tabs" id="role-tabs">
+        <label class="active">
+          <input type="radio" name="role" value="attendee" checked />
+          Attendee
+        </label>
+        <label>
+          <input type="radio" name="role" value="doorman" />
+          Doorman
+        </label>
+        <label>
+          <input type="radio" name="role" value="venue" />
+          Venue
+        </label>
+      </div>
+
+      <!-- ── Attendee panel ─────────────────────────────── -->
+      <div id="panel-attendee">
+        <p>Check a wallet's SETH balance and ticket holdings.</p>
+        <div class="form-group">
+          <label for="att-address">Wallet Address</label>
+          <input id="att-address" type="text" placeholder="0x…" autocomplete="off" />
+        </div>
+        <button id="btn-att-check" type="button" disabled>Check</button>
+        <div id="att-result" hidden></div>
+      </div>
+
+      <!-- ── Doorman panel ──────────────────────────────── -->
+      <div id="panel-doorman" hidden>
+        <p>Verify whether a wallet holds at least one ticket.</p>
+        <div class="form-group">
+          <label for="door-address">Wallet Address</label>
+          <input id="door-address" type="text" placeholder="0x…" autocomplete="off" />
+        </div>
+        <button id="btn-door-check" type="button" disabled>Verify</button>
+        <div id="door-result" hidden></div>
+      </div>
+
+      <!-- ── Venue panel ────────────────────────────────── -->
+      <div id="panel-venue" hidden>
+        <p>Live contract state: supply, sales, and accumulated SETH.</p>
+        <button id="btn-venue-refresh" type="button">Refresh</button>
+        <div id="venue-result" hidden></div>
+      </div>
+
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/balance.js"></script>
