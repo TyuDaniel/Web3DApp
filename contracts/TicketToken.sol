@@ -18,13 +18,30 @@ contract TicketToken is IERC20 {
     string public symbol;
     uint8 public immutable decimals;
     uint256 private immutable _totalSupply;
+    address private immutable _deployer;
+    uint256 public immutable ticketPrice;
+    uint256 private constant NOT_ENTERED = 1;
+    uint256 private constant ENTERED = 2;
+    uint256 private _status;
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
-    constructor(string memory _name, string memory _symbol, uint256 initialSupply) {
+    event Withdrawn(address deployer, uint256 amount);
+
+    modifier nonReentrant() {
+        require(_status == NOT_ENTERED, "TicketToken: reentrant call");
+        _status = ENTERED;
+        _;
+        _status = NOT_ENTERED;
+    }
+
+    constructor(string memory _name, string memory _symbol, uint256 initialSupply, uint256 _ticketPrice) {
         name = _name;
         symbol = _symbol;
         decimals = 18;
+        _deployer = msg.sender;
+        ticketPrice = _ticketPrice;
+        _status = NOT_ENTERED;
         _totalSupply = initialSupply * 10 ** 18;
         _balances[msg.sender] = _totalSupply;
         emit Transfer(address(0), msg.sender, _totalSupply);
@@ -69,5 +86,20 @@ contract TicketToken is IERC20 {
         _allowances[sender][msg.sender] -= amount;
         _transfer(sender, recipient, amount);
         return true;
+    }
+
+    function buyTicket() external payable nonReentrant {
+        require(msg.value == ticketPrice, "TicketToken: incorrect payment");
+        require(_allowances[_deployer][address(this)] >= 1 * 10 ** 18, "TicketToken: no tickets available");
+        _allowances[_deployer][address(this)] -= 1 * 10 ** 18;
+        _transfer(_deployer, msg.sender, 1 * 10 ** 18);
+    }
+
+    function withdraw() external nonReentrant {
+        require(msg.sender == _deployer, "TicketToken: only deployer");
+        uint256 balance = address(this).balance;
+        (bool success, ) = _deployer.call{value: balance}("");
+        require(success, "TicketToken: withdrawal failed");
+        emit Withdrawn(_deployer, balance);
     }
 }

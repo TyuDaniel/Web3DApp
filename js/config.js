@@ -1,11 +1,11 @@
-// Gas-optimised V2 of TicketToken (immutable decimals + _totalSupply, dead
-// zero-address check removed from approve). Deployed and verified on Sepolia.
+// V3 of TicketToken — adds buyTicket() (payable, fixed price, CEI ordered,
+// inline allowance manipulation). Deployed and verified on Sepolia.
+// Successful buy tx: 0x47f4b755f3d8317b9726e425519cdb619c59d64358eea2679d7f1f842db17217
 //
-// TODO V3: after buyTicket is added to the contract, paste the new ABI here —
-// it will include the buyTicket function and any custom events. This file is
-// the single source of truth for all front-end pages.
+// This file is the single source of truth for all front-end pages.
+// Update CONTRACT_ADDRESS and ABI here whenever a new version is deployed.
 
-const CONTRACT_ADDRESS = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
+const CONTRACT_ADDRESS = "0x04c7aA0AaFE789F10bC239383839469DA74FdB59";
 const RPC_URL = "https://rpc.sepolia.org";
 
 const ABI = [
@@ -13,7 +13,8 @@ const ABI = [
     "inputs": [
       { "internalType": "string", "name": "_name", "type": "string" },
       { "internalType": "string", "name": "_symbol", "type": "string" },
-      { "internalType": "uint256", "name": "initialSupply", "type": "uint256" }
+      { "internalType": "uint256", "name": "initialSupply", "type": "uint256" },
+      { "internalType": "uint256", "name": "_ticketPrice", "type": "uint256" }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -67,6 +68,13 @@ const ABI = [
   },
   {
     "inputs": [],
+    "name": "buyTicket",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "decimals",
     "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
     "stateMutability": "view",
@@ -83,6 +91,13 @@ const ABI = [
     "inputs": [],
     "name": "symbol",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ticketPrice",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
