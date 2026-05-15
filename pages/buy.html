@@ -7,29 +7,85 @@
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="card buy-card">
-      <a href="../index.html" class="back-link">← Back</a>
-      <h1>Buy Ticket</h1>
+  <div class="page page--inner page--wide">
+    <main class="card buy-card purchase-card">
+      <a href="../index.html" class="back-link">Back to festival</a>
 
-      <p>Unlock your downloaded keystore locally, then buy one ticket with SETH.</p>
+      <header class="page-header">
+        <p class="eyebrow">Secure checkout</p>
+        <h1>Buy Ticket</h1>
+        <p class="lede">Unlock your keystore locally, review the order, and purchase one festival ticket with SETH.</p>
+      </header>
 
-      <div class="form-group">
-        <label for="keystore-file">Keystore JSON</label>
-        <input id="keystore-file" type="file" accept="application/json,.json" />
-      </div>
+      <section class="checkout-layout" aria-label="Ticket checkout">
+        <div class="ticket-offer">
+          <div class="ticket-stub ticket-stub--checkout">
+            <div class="ticket-stub__main">
+              <p class="ticket-stub__kicker">Sepolia Music Festival 2026</p>
+              <h2>General Admission</h2>
+              <div class="ticket-stub__details">
+                <span>Saturday, 24 Oct 2026</span>
+                <span>The Foundry Hall, Dublin</span>
+              </div>
+            </div>
+            <div class="ticket-stub__side">
+              <span>1 Ticket</span>
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label for="keystore-password">Keystore Password</label>
-        <input id="keystore-password" type="password" autocomplete="current-password" />
-      </div>
+          <div class="order-summary" aria-label="Order summary">
+            <div>
+              <span>Quantity</span>
+              <strong>1 ticket</strong>
+            </div>
+            <div>
+              <span>Network</span>
+              <strong>Sepolia</strong>
+            </div>
+            <div>
+              <span>Price</span>
+              <strong id="ticket-price">Unlock to load price</strong>
+            </div>
+          </div>
+        </div>
 
-      <button id="btn-unlock" type="button" disabled>Unlock Wallet</button>
+        <div class="secure-login" aria-label="Secure wallet login">
+          <div class="secure-login__header">
+            <span class="secure-login__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M7 10V8a5 5 0 0 1 10 0v2" />
+                <path d="M6 10h12v10H6z" />
+                <path d="M12 14v2" />
+              </svg>
+            </span>
+            <div>
+              <h2>Unlock Wallet</h2>
+              <p>Your keystore is decrypted in this browser only.</p>
+            </div>
+          </div>
 
-      <div id="wallet-panel" hidden>
+          <div class="form-group file-login">
+            <label for="keystore-file">Keystore JSON</label>
+            <input id="keystore-file" type="file" accept="application/json,.json" />
+          </div>
+
+          <div class="form-group">
+            <label for="keystore-password">Keystore Password</label>
+            <input id="keystore-password" type="password" autocomplete="current-password" />
+          </div>
+
+          <button id="btn-unlock" type="button" disabled>Unlock Wallet</button>
+        </div>
+      </section>
+
+      <section id="wallet-panel" class="wallet-panel order-review" hidden aria-label="Unlocked wallet order review">
+        <div class="section-heading">
+          <p class="eyebrow">Order review</p>
+          <h2>Ready to Purchase</h2>
+        </div>
         <div class="stats">
           <div class="stat stat--wide">
-            <div class="stat__label">Address</div>
+            <div class="stat__label">Buyer Wallet</div>
             <div class="stat__value stat__value--small" id="buyer-address"></div>
           </div>
           <div class="stat">
@@ -40,14 +96,10 @@
             <div class="stat__label">Tickets Held</div>
             <div class="stat__value" id="buyer-tickets"></div>
           </div>
-          <div class="stat stat--wide">
-            <div class="stat__label">Ticket Price</div>
-            <div class="stat__value" id="ticket-price"></div>
-          </div>
         </div>
 
-        <button id="btn-buy" type="button">Buy Ticket</button>
-      </div>
+        <button id="btn-buy" type="button">Buy 1 Ticket</button>
+      </section>
 
       <div id="state-panel" class="state-panel" aria-live="polite">
         <div class="state-panel__label">
@@ -57,10 +109,15 @@
         <div class="state-panel__detail" id="state-detail">Upload your keystore to begin.</div>
       </div>
 
-      <div id="receipt-panel" class="receipt-panel" hidden>
+      <div id="receipt-panel" class="receipt-panel receipt-panel--ticket" hidden>
+        <div>
+          <p class="eyebrow">Ticket confirmation</p>
+          <h2>You're on the list</h2>
+          <p>Your purchase is confirmed on Sepolia.</p>
+        </div>
         <a id="etherscan-link" target="_blank" rel="noopener noreferrer"></a>
       </div>
-    </div>
+    </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
   <script src="../js/config.js"></script>

@@ -71,8 +71,9 @@ If this step is skipped, `buyTicket` will always fail with
   enforces whole-ticket operations but the contract itself does not 
   restrict it.
 
+## Submission documents
 
-- `docs/report.md` - project report and Generative AI statement
-- `docs/deployments.md` - Sepolia contract, wallet, and transaction evidence
-- `docs/test-cases.md` - manual and code-inspection test cases
+- `docs/report.docx` - project report and Generative AI statement
+- `docs/deployments.docx` - Sepolia contract, wallet, and transaction evidence
+- `docs/test-cases.docx` - manual and code-inspection test cases
 - `docs/ai-chatlogs/` - AI development and review logs

@@ -3,21 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web3 Ticketing DApp</title>
+  <title>Sepolia Music Festival 2026</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="card">
-      <h1>Web3 Ticketing</h1>
-      <p>Sepolia Testnet</p>
-      <nav class="nav">
-        <a href="pages/create-wallet.html">Create Wallet</a>
-        <a href="pages/balance.html">Balance</a>
-        <a href="pages/buy.html">Buy Ticket</a>
-        <a href="pages/transfer.html">Transfer Ticket</a>
+  <div class="page page--home">
+    <main class="home-shell" aria-labelledby="event-title">
+      <section class="hero">
+        <div class="hero__content">
+          <p class="eyebrow">Official Sepolia testnet ticketing</p>
+          <h1 id="event-title">Sepolia Music Festival 2026</h1>
+          <div class="event-meta" aria-label="Event details">
+            <span>Saturday, 24 October 2026</span>
+            <span>The Foundry Hall, Dublin</span>
+          </div>
+          <p class="hero__copy">Buy, verify, and check in with a wallet-backed festival ticket.</p>
+        </div>
+      </section>
+
+      <nav class="nav" aria-label="Ticket actions">
+        <a class="nav-card" href="pages/create-wallet.html">
+          <span class="nav-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M19 7V6a3 3 0 0 0-3-3H6.5A3.5 3.5 0 0 0 3 6.5v11A3.5 3.5 0 0 0 6.5 21H19a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z" />
+              <path d="M3 7h16" />
+              <path d="M16 14h.01" />
+            </svg>
+          </span>
+          <span>
+            <strong>Create Wallet</strong>
+            <small>First time? Set up your crypto wallet</small>
+          </span>
+        </a>
+        <a class="nav-card" href="pages/balance.html">
+          <span class="nav-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M9 12l2 2 4-5" />
+              <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </span>
+          <span>
+            <strong>Check Balance</strong>
+            <small>Already have a ticket? Verify your entry</small>
+          </span>
+        </a>
+        <a class="nav-card" href="pages/buy.html">
+          <span class="nav-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M4 9V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a3 3 0 0 0 0 6v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a3 3 0 0 0 0-6Z" />
+              <path d="M13 5v2" />
+              <path d="M13 11v2" />
+              <path d="M13 17v2" />
+            </svg>
+          </span>
+          <span>
+            <strong>Buy Ticket</strong>
+            <small>Purchase your ticket with SETH</small>
+          </span>
+        </a>
+        <a class="nav-card" href="pages/transfer.html">
+          <span class="nav-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M5 12h14" />
+              <path d="M13 6l6 6-6 6" />
+              <path d="M5 5v14" />
+            </svg>
+          </span>
+          <span>
+            <strong>Transfer Ticket</strong>
+            <small>Transfer your ticket to the door</small>
+          </span>
+        </a>
       </nav>
-    </div>
+
+      <footer class="site-footer">
+        Contract <span>0x705D6c204a755e51b517bBA9124e3F23Dc9F88C2</span>
+      </footer>
+    </main>
   </div>
 </body>
 </html>

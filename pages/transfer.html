@@ -3,35 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transfer Ticket</title>
+  <title>Check In</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="card">
-      <a href="../index.html" class="back-link">← Back</a>
-      <h1>Transfer Ticket</h1>
+  <div class="page page--inner page--wide">
+    <main class="card transfer-card">
+      <a href="../index.html" class="back-link">Back to festival</a>
 
-      <p>Unlock your keystore locally, then send one ticket back to the vendor.</p>
+      <header class="page-header">
+        <p class="eyebrow">Door transfer</p>
+        <h1>Check In</h1>
+        <p class="lede">Hand your ticket to the door. Unlock locally, confirm the recipient, then transfer one ticket for entry.</p>
+      </header>
 
-      <div class="form-group">
-        <label for="keystore-file">Keystore JSON</label>
-        <input id="keystore-file" type="file" accept="application/json,.json" />
-      </div>
+      <section class="checkout-layout" aria-label="Check-in unlock">
+        <div class="entry-brief">
+          <div class="entry-brief__light" aria-hidden="true"></div>
+          <p class="eyebrow">Final entry step</p>
+          <h2>Ready for the Door</h2>
+          <p>After this transfer, the venue wallet receives your ticket and your entry is recorded on Sepolia.</p>
+        </div>
 
-      <div class="form-group">
-        <label for="keystore-password">Keystore Password</label>
-        <input id="keystore-password" type="password" autocomplete="current-password" />
-      </div>
-
-      <button id="btn-unlock" type="button" disabled>Unlock Wallet</button>
-
-      <div id="wallet-panel" hidden>
-        <div class="stats">
-          <div class="stat stat--wide">
-            <div class="stat__label">Address</div>
-            <div class="stat__value stat__value--small" id="holder-address"></div>
+        <div class="secure-login" aria-label="Secure wallet login">
+          <div class="secure-login__header">
+            <span class="secure-login__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M7 10V8a5 5 0 0 1 10 0v2" />
+                <path d="M6 10h12v10H6z" />
+                <path d="M12 14v2" />
+              </svg>
+            </span>
+            <div>
+              <h2>Unlock Wallet</h2>
+              <p>Your keystore stays local while the ticket transfer is signed.</p>
+            </div>
           </div>
+
+          <div class="form-group file-login">
+            <label for="keystore-file">Keystore JSON</label>
+            <input id="keystore-file" type="file" accept="application/json,.json" />
+          </div>
+
+          <div class="form-group">
+            <label for="keystore-password">Keystore Password</label>
+            <input id="keystore-password" type="password" autocomplete="current-password" />
+          </div>
+
+          <button id="btn-unlock" type="button" disabled>Unlock Wallet</button>
+        </div>
+      </section>
+
+      <section id="wallet-panel" class="wallet-panel checkin-panel" hidden aria-label="Check-in confirmation">
+        <div class="section-heading">
+          <p class="eyebrow">Confirm before entry</p>
+          <h2>Transfer Ticket to Door</h2>
+        </div>
+
+        <div class="handoff-card">
+          <div class="handoff-row">
+            <span>From</span>
+            <strong id="holder-address"></strong>
+          </div>
+          <div class="handoff-row">
+            <span>To</span>
+            <strong id="vendor-address"></strong>
+          </div>
+          <div class="handoff-row handoff-row--ticket">
+            <span>What</span>
+            <strong>1 ticket</strong>
+          </div>
+        </div>
+
+        <div class="stats stats--compact">
           <div class="stat">
             <div class="stat__label">SETH Balance</div>
             <div class="stat__value" id="holder-eth"></div>
@@ -40,15 +84,11 @@
             <div class="stat__label">Tickets Held</div>
             <div class="stat__value" id="holder-tickets"></div>
           </div>
-          <div class="stat stat--wide">
-            <div class="stat__label">Vendor Address</div>
-            <div class="stat__value stat__value--small" id="vendor-address"></div>
-          </div>
         </div>
 
-        <button id="btn-transfer" type="button">Transfer 1 Ticket</button>
-        <p id="transfer-disabled-reason" hidden></p>
-      </div>
+        <button id="btn-transfer" type="button">Check In with 1 Ticket</button>
+        <p id="transfer-disabled-reason" class="disabled-reason" hidden></p>
+      </section>
 
       <div id="state-panel" class="state-panel" aria-live="polite">
         <div class="state-panel__label">
@@ -58,10 +98,15 @@
         <div class="state-panel__detail" id="state-detail">Upload your keystore to begin.</div>
       </div>
 
-      <div id="receipt-panel" class="receipt-panel" hidden>
+      <div id="receipt-panel" class="receipt-panel receipt-panel--entry" hidden>
+        <div>
+          <p class="eyebrow">Entry confirmed</p>
+          <h2>You're checked in</h2>
+          <p>Your ticket transfer is confirmed on Sepolia.</p>
+        </div>
         <a id="etherscan-link" target="_blank" rel="noopener noreferrer"></a>
       </div>
-    </div>
+    </main>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
   <script src="../js/config.js"></script>

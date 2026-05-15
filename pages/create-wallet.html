@@ -3,44 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Create Wallet</title>
+  <title>Set Up Your Wallet</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="card">
-      <a href="../index.html" class="back-link">← Back</a>
-      <h1>Create Wallet</h1>
+  <div class="page page--inner">
+    <main class="card flow-card wallet-card">
+      <a href="../index.html" class="back-link">Back to festival</a>
 
-      <button id="btn-generate" type="button">Generate Wallet</button>
+      <header class="page-header">
+        <p class="eyebrow">Wallet onboarding</p>
+        <h1>Set Up Your Wallet</h1>
+        <p class="lede">A one-time setup for first-time attendees. Generate a wallet, secure the private key, then download an encrypted keystore for ticket purchases.</p>
+      </header>
 
-      <div id="wallet-output" hidden>
-        <div class="form-group">
-          <label for="out-address">Address</label>
-          <input id="out-address" type="text" readonly />
+      <section class="step-card step-card--active" aria-labelledby="step-generate">
+        <div class="step-card__marker">Step 1</div>
+        <div class="step-card__body">
+          <h2 id="step-generate">Generate</h2>
+          <p>Create a fresh wallet for Sepolia Music Festival 2026.</p>
+          <button id="btn-generate" type="button">Generate Wallet</button>
         </div>
+      </section>
 
-        <div class="form-group">
-          <label for="out-privkey">Private Key</label>
-          <div class="input-row">
-            <input id="out-privkey" type="password" readonly />
-            <button id="btn-reveal" type="button">Show</button>
+      <div id="wallet-output" class="wallet-output" hidden>
+        <section class="step-card" aria-labelledby="step-secure">
+          <div class="step-card__marker">Step 2</div>
+          <div class="step-card__body">
+            <h2 id="step-secure">Secure</h2>
+            <p>Copy nothing into chat, email, or shared notes. This key controls the ticket.</p>
+
+            <div class="form-group">
+              <label for="out-address">Wallet Address</label>
+              <input id="out-address" type="text" readonly />
+            </div>
+
+            <div class="form-group">
+              <label for="out-privkey">Private Key</label>
+              <div class="input-row">
+                <input id="out-privkey" type="password" readonly />
+                <button id="btn-reveal" type="button">Show</button>
+              </div>
+            </div>
+
+            <div class="warning-box" role="alert">
+              <span class="warning-box__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M7 10V8a5 5 0 0 1 10 0v2" />
+                  <path d="M6 10h12v10H6z" />
+                  <path d="M12 14v2" />
+                </svg>
+              </span>
+              <span><strong>Security warning.</strong> This is the only time you will see the private key. Download the keystore before refreshing or leaving this page.</span>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="warning-box">
-          This is the only time you'll see the private key.
-          Download the keystore before refreshing.
-        </div>
+        <section class="step-card" aria-labelledby="step-download">
+          <div class="step-card__marker">Step 3</div>
+          <div class="step-card__body">
+            <h2 id="step-download">Download</h2>
+            <p>Choose a strong encryption password. You will use it to unlock your wallet locally.</p>
 
-        <div class="form-group">
-          <label for="inp-password">Encryption Password (min 12 chars)</label>
-          <input id="inp-password" type="password" autocomplete="new-password" />
-        </div>
+            <div class="form-group">
+              <label for="inp-password">Encryption Password (min 12 chars)</label>
+              <input id="inp-password" type="password" autocomplete="new-password" />
+            </div>
 
-        <button id="btn-download" type="button" disabled>Download Keystore</button>
+            <button id="btn-download" type="button" disabled>Download Keystore</button>
+          </div>
+        </section>
       </div>
-    </div>
+    </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>

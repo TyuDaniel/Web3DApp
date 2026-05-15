@@ -3,61 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Check Balance</title>
+  <title>Verify Entry</title>
   <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-  <div class="page">
-    <div class="card">
-      <a href="../index.html" class="back-link">← Back</a>
-      <h1>Check Balance</h1>
+  <div class="page page--inner page--wide">
+    <main class="card balance-card">
+      <a href="../index.html" class="back-link">Back to festival</a>
 
-      <!-- Role selector -->
-      <div class="role-tabs" id="role-tabs">
+      <header class="page-header">
+        <p class="eyebrow">Ticket verification</p>
+        <h1>Verify Entry</h1>
+        <p class="lede">Switch roles for attendee checks, door decisions, and venue sales visibility.</p>
+      </header>
+
+      <div class="role-tabs" id="role-tabs" aria-label="Verification role">
         <label class="active">
           <input type="radio" name="role" value="attendee" checked />
-          Attendee
+          I'm an Attendee
         </label>
         <label>
           <input type="radio" name="role" value="doorman" />
-          Doorman
+          I'm a Doorman
         </label>
         <label>
           <input type="radio" name="role" value="venue" />
-          Venue
+          I'm the Venue
         </label>
       </div>
 
-      <!-- ── Attendee panel ─────────────────────────────── -->
-      <div id="panel-attendee">
-        <p>Check a wallet's SETH balance and ticket holdings.</p>
-        <div class="form-group">
-          <label for="att-address">Wallet Address</label>
-          <input id="att-address" type="text" placeholder="0x…" autocomplete="off" />
+      <section id="panel-attendee" class="role-panel attendee-panel" aria-labelledby="attendee-title">
+        <div class="panel-copy">
+          <p class="eyebrow">Attendee</p>
+          <h2 id="attendee-title">Your Ticket Stub</h2>
+          <p>Paste your wallet address to see whether it holds an entry ticket.</p>
         </div>
-        <button id="btn-att-check" type="button" disabled>Check</button>
-        <div id="att-result" hidden></div>
-      </div>
 
-      <!-- ── Doorman panel ──────────────────────────────── -->
-      <div id="panel-doorman" hidden>
-        <p>Verify whether a wallet holds at least one ticket.</p>
-        <div class="form-group">
-          <label for="door-address">Wallet Address</label>
-          <input id="door-address" type="text" placeholder="0x…" autocomplete="off" />
+        <div class="ticket-check">
+          <div class="ticket-stub ticket-stub--input" aria-label="Sepolia Music Festival ticket lookup">
+            <div class="ticket-stub__main">
+              <p class="ticket-stub__kicker">Sepolia Music Festival 2026</p>
+              <h3>General Admission</h3>
+              <div class="ticket-stub__details">
+                <span>24 Oct 2026</span>
+                <span>The Foundry Hall</span>
+              </div>
+              <div class="form-group">
+                <label for="att-address">Wallet Address</label>
+                <input id="att-address" type="text" placeholder="0x..." autocomplete="off" />
+              </div>
+              <button id="btn-att-check" type="button" disabled>Check Ticket</button>
+            </div>
+            <div class="ticket-stub__side">
+              <span>Entry</span>
+            </div>
+          </div>
+          <div id="att-result" class="ticket-result" hidden></div>
         </div>
-        <button id="btn-door-check" type="button" disabled>Verify</button>
-        <div id="door-result" hidden></div>
-      </div>
+      </section>
 
-      <!-- ── Venue panel ────────────────────────────────── -->
-      <div id="panel-venue" hidden>
-        <p>Live contract state: supply, sales, and accumulated SETH.</p>
-        <button id="btn-venue-refresh" type="button">Refresh</button>
+      <section id="panel-doorman" class="role-panel doorman-panel" hidden aria-labelledby="doorman-title">
+        <div class="panel-copy">
+          <p class="eyebrow">Door check</p>
+          <h2 id="doorman-title">Bouncer Mode</h2>
+          <p>Scan a wallet before entry. The result is built for a phone screen in low light.</p>
+        </div>
+
+        <div class="door-check-card">
+          <div class="form-group">
+            <label for="door-address">Address at the Door</label>
+            <input id="door-address" type="text" placeholder="0x..." autocomplete="off" />
+          </div>
+          <button id="btn-door-check" type="button" disabled>Verify Entry</button>
+          <div id="door-result" hidden></div>
+        </div>
+      </section>
+
+      <section id="panel-venue" class="role-panel venue-panel" hidden aria-labelledby="venue-title">
+        <div class="venue-dashboard__header">
+          <div>
+            <p class="eyebrow">Venue dashboard</p>
+            <h2 id="venue-title">Promoter View</h2>
+            <p>Live contract state for supply, sales, remaining tickets, and accumulated SETH.</p>
+          </div>
+          <button id="btn-venue-refresh" type="button">Refresh Stats</button>
+        </div>
         <div id="venue-result" hidden></div>
-      </div>
+      </section>
 
-    </div>
+    </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
