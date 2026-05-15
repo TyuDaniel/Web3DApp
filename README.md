@@ -70,3 +70,9 @@ If this step is skipped, `buyTicket` will always fail with
 - ERC-20 technically allows fractional token transfers. The frontend 
   enforces whole-ticket operations but the contract itself does not 
   restrict it.
+
+
+- `docs/report.md` - project report and Generative AI statement
+- `docs/deployments.md` - Sepolia contract, wallet, and transaction evidence
+- `docs/test-cases.md` - manual and code-inspection test cases
+- `docs/ai-chatlogs/` - AI development and review logs

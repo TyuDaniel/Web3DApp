@@ -71,7 +71,13 @@ I declined a few changes because they would have required a V5 redeploy late in 
 
 The review process taught me that the contract can be technically correct and still lose marks if the setup assumptions are not written down for the next person.
 
-## 7. Known Limitations
+## 7. Statement on Use of Generative AI
+
+I used Generative AI as a supervised development assistant throughout the project. The AI was used to propose implementation plans, write first drafts of code, review gas and security trade-offs, generate and expand test cases, and help document the final system. I did not accept AI output blindly: the chat logs show that I rejected or corrected plans, asked for specific architecture changes, required error-handling improvements, requested gas analysis, and manually tested the final wallet, balance, buy, transfer, and contract flows.
+
+The final design choices remain my responsibility. In particular, I directed the use of a plain HTML/CSS/JavaScript frontend, the keystore wallet flow, the V4 contract deployment, the manual reentrancy guard, the hardcoded deployer/vendor address trade-off, and the decision to document the fractional ERC-20 ticket limitation instead of redeploying late in the project. The supporting AI interaction logs are included in `docs/ai-chatlogs/`.
+
+## 8. Known Limitations
 
 - `decimals = 18` allows fractional transfers at contract level; frontend enforces whole-ticket operations.
 - `DEPLOYER_ADDRESS` is hardcoded in frontend config; it needs manual update on redeploy.

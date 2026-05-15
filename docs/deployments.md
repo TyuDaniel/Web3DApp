@@ -2,7 +2,7 @@
 
 All deployments to Ethereum Sepolia testnet via Remix IDE → Injected
 Provider → MetaMask. Each version represents a deliberate iteration
-documented in `ai-dialogue-log.md`.
+documented in `docs/ai-chatlogs/`.
 
 ---
 

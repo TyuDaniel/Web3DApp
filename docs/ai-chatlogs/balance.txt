@@ -1,0 +1,1349 @@
+ ▐▛███▜▌   Claude Code v2.1.132
+▝▜█████▛▘  Sonnet 4.6 · Claude Pro
+  ▘▘ ▝▝    ~/projects/ise-projects/Web3DApp
+
+❯                                                                               
+  two - step task.step 1 first,                                                 
+      then step 2. don't merge them into                                        
+                                                                                
+      one diff.                                                                 
+                                                                                
+      STEP 1 — update js /                                                      
+      config.js to V4                                                           
+                                                                                
+  V4 contract address: 0x705D6c204a755e51b517bBA9124e3F23Dc9F88C2               
+                                                                                
+  deployment tx:                                                                
+      0x85786fc20431c6ac55e740b2a8b45d02fa99c0c6602e0516a2d86e96ee599916        
+                                                                                
+  ticketPrice: 1000000000000 wei(0.000001 SETH)                                 
+                                                                                
+  constructor name: 'TicketTokenV4'                                             
+                                                                                
+  V4 has buyTicket() + withdraw() +                                             
+          a Withdrawn event that V3 didn't                                      
+                                                                                
+          have.ABI grew from 14 entries to 16. here's the full V4 ABI from      
+                                                                                
+          remix's compiler tab — paste it in:                                   
+                                                                                
+                                                                                
+                                                                                
+          update the comment block at top to mark this as V4 with the           
+                                                                                
+  security additions(withdraw + reentrancy guard) and note this is              
+                                                                                
+      the final contract version,                                               
+      no more iterations expected.                                              
+                                                                                
+      STEP 2 — balance page(balance.html + js / balance.js)                     
+                                                                                
+  read - only — no signing, no contract writes, no keystore.queries             
+  [                                                                             
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'string',                                             
+          'name': '_name',                                                      
+          'type': 'string'                                                      
+        },                                                                      
+        {                                                                       
+          'internalType': 'string',                                             
+          'name': '_symbol',                                                    
+          'type': 'string'                                                      
+        },                                                                      
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': 'initialSupply',                                              
+          'type': 'uint256'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': '_ticketPrice',                                               
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'nonpayable',                                          
+      'type': 'constructor'                                                     
+    },                                                                          
+    {                                                                           
+      'anonymous': false,                                                       
+      'inputs': [                                                               
+        {                                                                       
+          'indexed': true,                                                      
+          'internalType': 'address',                                            
+          'name': 'owner',                                                      
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'indexed': true,                                                      
+          'internalType': 'address',                                            
+          'name': 'spender',                                                    
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'indexed': false,                                                     
+          'internalType': 'uint256',                                            
+          'name': 'value',                                                      
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'Approval',                                                       
+      'type': 'event'                                                           
+    },                                                                          
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'spender',                                                    
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': 'amount',                                                     
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'approve',                                                        
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'bool',                                               
+          'name': '',                                                           
+          'type': 'bool'                                                        
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'nonpayable',                                          
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'buyTicket',                                                      
+      'outputs': [],                                                            
+      'stateMutability': 'payable',                                             
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'recipient',                                                  
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': 'amount',                                                     
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'transfer',                                                       
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'bool',                                               
+          'name': '',                                                           
+          'type': 'bool'                                                        
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'nonpayable',                                          
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'anonymous': false,                                                       
+      'inputs': [                                                               
+        {                                                                       
+          'indexed': true,                                                      
+          'internalType': 'address',                                            
+          'name': 'from',                                                       
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'indexed': true,                                                      
+          'internalType': 'address',                                            
+          'name': 'to',                                                         
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'indexed': false,                                                     
+          'internalType': 'uint256',                                            
+          'name': 'value',                                                      
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'Transfer',                                                       
+      'type': 'event'                                                           
+    },                                                                          
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'sender',                                                     
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'recipient',                                                  
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': 'amount',                                                     
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'transferFrom',                                                   
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'bool',                                               
+          'name': '',                                                           
+          'type': 'bool'                                                        
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'nonpayable',                                          
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'withdraw',                                                       
+      'outputs': [],                                                            
+      'stateMutability': 'nonpayable',                                          
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'anonymous': false,                                                       
+      'inputs': [                                                               
+        {                                                                       
+          'indexed': false,                                                     
+          'internalType': 'address',                                            
+          'name': 'deployer',                                                   
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'indexed': false,                                                     
+          'internalType': 'uint256',                                            
+          'name': 'amount',                                                     
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'Withdrawn',                                                      
+      'type': 'event'                                                           
+    },                                                                          
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'owner',                                                      
+          'type': 'address'                                                     
+        },                                                                      
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'spender',                                                    
+          'type': 'address'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'allowance',                                                      
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': '',                                                           
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [                                                               
+        {                                                                       
+          'internalType': 'address',                                            
+          'name': 'account',                                                    
+          'type': 'address'                                                     
+        }                                                                       
+      ],                                                                        
+      'name': 'balanceOf',                                                      
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': '',                                                           
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'decimals',                                                       
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'uint8',                                              
+          'name': '',                                                           
+          'type': 'uint8'                                                       
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'name',                                                           
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'string',                                             
+          'name': '',                                                           
+          'type': 'string'                                                      
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'symbol',                                                         
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'string',                                             
+          'name': '',                                                           
+          'type': 'string'                                                      
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'ticketPrice',                                                    
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': '',                                                           
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    },                                                                          
+    {                                                                           
+      'inputs': [],                                                             
+      'name': 'totalSupply',                                                    
+      'outputs': [                                                              
+        {                                                                       
+          'internalType': 'uint256',                                            
+          'name': '',                                                           
+          'type': 'uint256'                                                     
+        }                                                                       
+      ],                                                                        
+      'stateMutability': 'view',                                                
+      'type': 'function'                                                        
+    }                                                                           
+  ]                                                                             
+  V4 contract state via web3.eth.Contract(...)                                  
+      .call()                                                                   
+      .reference:                                                               
+                                                                                
+          andy legear's checkBalance example from tutorial 1, same web3         
+                                                                                
+      read pattern.extending it because the brief explicitly wants              
+                                                                                
+  three distinct actor views, not one generic 'type address, see'               
+                                                                                
+  balance ''                                                                    
+                                                                                
+  three role-distinct views, selected by radio buttons at the top:              
+                                                                                
+  1. ATTENDEE                                                                   
+                                                                                
+  - input: a wallet address                                                     
+                                                                                
+  - output: their SETH balance (in ether) AND their ticket balance              
+                                                                                
+    (raw uint divided by 10^18 for display)                                     
+                                                                                
+  - prose tone: 'you hold N tickets' or 'you hold no tickets'                   
+                                                                                
+  - meant for someone confirming their own purchase                             
+                                                                                
+  2. DOORMAN                                                                    
+                                                                                
+          - input: a wallet address                                             
+                                                                                
+          - output: a single big visual badge — green ✓ HOLDS TICKET if         
+                                                                                
+          ticket balance >=                                                     
+      1,                                                                        
+      red ✗ NO TICKET otherwise                                                 
+                                                                                
+      - show the address being checked truncated(0xAbcd...1234) so the          
+                                                                                
+  doorman can eyeball - match against the customer's screen                     
+                                                                                
+      - DON 'T show numeric balance — doormen don' t need it,                   
+      the binary                                                                
+                                                                                
+    yes/no is the point                                                         
+                                                                                
+  - meant for at-the-door verification                                          
+                                                                                
+    3. VENUE                                                                    
+                                                                                
+        - no address input — venue checks contract state itself                 
+                                                                                
+        - output: total supply(read totalSupply),                               
+        tickets sold(                                                           
+            =                                                                   
+                                                                                
+                totalSupply minus deployer balance),                            
+        tickets remaining(                                                      
+            =                                                                   
+                                                                                
+                deployer balance),                                              
+        contract SETH balance via                                               
+                                                                                
+    web3.eth.getBalance(CONTRACT_ADDRESS) — that's accumulated                  
+                                                                                
+    unwithdrawn revenue                                                         
+                                                                                
+  - meant for monitoring sales                                                  
+                                                                                
+  implementation notes:                                                         
+                                                                                
+  - single Sepolia RPC URL from config.js (RPC_URL global)                      
+                                                                                
+  - new web3.eth.Contract(ABI, CONTRACT_ADDRESS) once at page load              
+                                                                                
+  - web3.utils.isAddress(addr) to validate input before calling —               
+                                                                                
+    malformed addresses show a friendly error not crash                         
+                                                                                
+  - a 'refresh' button per view — don't auto-poll, but the rubric               
+                                                                                
+    wants real-time accuracy, so let the user re-check on demand                
+                                                                                
+  - if an address has never touched the chain it should return                  
+                                                                                
+    zeros not error — test this                                                 
+                                                                                
+  failure modes I want handled upfront:                                         
+                                                                                
+  - invalid address pasted → showError, don't call contract                     
+                                                                                
+  - RPC times out / rate-limits → showError('Sepolia RPC busy, try'             
+                                                                                
+  again in a moment '), not raw erro'                                           
+                                                                                
+          - empty address field → button stays disabled                         
+                                                                                
+  use showSuccess / showError from ui.js.doorman badge should be                
+                                                                                
+  visually obvious — big, coloured, bold — that's the whole UX point.           
+                                                                                
+  planning mode first. show the plan for both steps before writing              
+                                                                                
+  any code. also follow andys git https://github.com/andylegear/web3examples    
+  /plan                                                                         
+  ⎿  ⧉ Selected 1 lines from ../../../Downloads/wallet-0x61ec8B-1778149303677.json in Visual Studio Code
+
+⏺ Reading the current project structure before entering plan mode.
+
+  Searched for 1 pattern, read 11 files (ctrl+o to expand)
+
+⏺ Entered plan mode
+  Claude is now exploring and designing an implementation approach.
+
+⏺ Updated plan
+  ⎿  /plan to preview
+  ⎿  Tool use rejected
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/refactored-mapping-minsky.md · /plan to edit
+     Plan: config.js → V4 + balance page (3 roles)
+
+     Context
+
+     V4 of TicketToken has been deployed to Sepolia with two new additions vs
+     V3:
+     withdraw() (owner pull pattern) and a manual nonReentrant guard. The ABI
+     grows from 14 entries to 16. The front-end still points at the V3 address.
+     The
+     balance page is a stub. This plan brings config to V4 and builds the full
+     three-role balance page described in the brief.
+
+     ---
+     Step 1 — js/config.js
+
+     File: js/config.js
+
+     Changes (single diff, no other files touched in this step):
+
+     1. Replace top comment block to read:
+       - V4 of TicketToken — final contract version, no further iterations
+     expected
+       - Security additions: withdraw() (owner pull) + manual nonReentrant guard
+      on buyTicket and withdraw
+       - Deployment tx noted
+     2. CONTRACT_ADDRESS → "0x705D6c204a755e51b517bBA9124e3F23Dc9F88C2"
+     3. Add DEPLOYER_ADDRESS = "0x4c6A154131C03f5A60BEA08Ae2099f420145c3dB" with
+      a comment block above it:
+       - This duplicates the contract's private _deployer immutable
+       - In production, expose a deployer() public getter and read it from chain
+       - Hardcoding is a deliberate scope decision for this submission
+     4. Replace ABI with the 16-entry V4 ABI supplied by the user (adds withdraw
+      nonpayable function + Withdrawn anonymous=false event with deployer/amount
+      params). Entry order follows the Remix output as supplied.
+
+     RPC_URL is unchanged.
+
+     ---
+     Step 2 — pages/balance.html + js/balance.js + css/styles.css
+
+     2a — css/styles.css
+
+     Add two new rule blocks at the bottom (no existing rules touched):
+
+     /* ── Role tabs ────────────────────────────────────────────── */
+     .role-tabs { display: flex; gap: 0; margin-bottom: 24px; }
+     .role-tabs label { ... }          /* pill/tab style using --accent */
+     .role-tabs input[type=radio] { position: absolute; opacity: 0; }
+     .role-tabs label.active { ... }   /* selected state */
+
+     /* ── Doorman badge ────────────────────────────────────────── */
+     .badge {
+       display: block; text-align: center; padding: 28px 16px;
+       border-radius: var(--radius); font-size: 2rem; font-weight: 700;
+       margin-top: 16px; border: 2px solid;
+     }
+     .badge--pass { background: var(--success-bg); border-color:
+     var(--success-border); color: var(--success-text); }
+     .badge--fail { background: var(--error-bg);   border-color:
+     var(--error-border);   color: var(--error-text); }
+
+     2b — pages/balance.html
+
+     Full rewrite of the stub. Structure:
+
+     <head>
+       web3@1.10.4 CDN  (same version as create-wallet.html)
+       styles.css
+
+     <body>
+       .page > .card
+         h1 "Check Balance"
+
+         <!-- Role selector -->
+         <div class="role-tabs">
+           <label> <input type="radio" name="role" value="attendee" checked>
+     Attendee </label>
+           <label> <input type="radio" name="role" value="doorman">  Doorman
+     </label>
+           <label> <input type="radio" name="role" value="venue">    Venue
+     </label>
+         </div>
+
+         <!-- Panel: Attendee -->
+         <div id="panel-attendee">
+           address input + "Check" button (disabled when empty)
+           <div id="att-result" hidden> SETH balance + ticket count prose </div>
+         </div>
+
+         <!-- Panel: Doorman (hidden) -->
+         <div id="panel-doorman" hidden>
+           address input + "Verify" button
+           <div id="door-result" hidden> .badge--pass or .badge--fail </div>
+         </div>
+
+         <!-- Panel: Venue (hidden) -->
+         <div id="panel-venue" hidden>
+           "Refresh" button only
+           <div id="venue-result" hidden>
+             totalSupply / sold / remaining / contract ETH balance
+           </div>
+         </div>
+
+       scripts: config.js → ui.js → balance.js
+
+     2c — js/balance.js
+
+     const web3    = new Web3(RPC_URL);
+     const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+
+     // Role switching — show/hide panels
+     radios → addEventListener('change', switchPanel)
+
+     // ── Attendee ──────────────────────────────────────────────
+     att-address input → enable/disable button via web3.utils.isAddress()
+     btn-att-check → checkAttendee()
+
+     async checkAttendee():
+       validate → web3.utils.isAddress()  (showError if bad)
+       Promise.all([
+         web3.eth.getBalance(addr),
+         contract.methods.balanceOf(addr).call()
+       ])
+       ethDisplay = web3.utils.fromWei(eth, 'ether')
+       tickets    = BigInt(raw) / BigInt(10n ** 18n)
+       prose: "You hold N ticket(s)" / "You hold no tickets"
+       catch → showError('Sepolia RPC busy, try again in a moment')
+
+     // ── Doorman ───────────────────────────────────────────────
+     door-address → enable/disable button
+     btn-door-check → checkDoorman()
+
+     async checkDoorman():
+       validate → showError if bad
+       raw = await contract.methods.balanceOf(addr).call()
+       hasTicket = BigInt(raw) >= BigInt(10n ** 18n)   // >= 1 token
+       truncated = addr.slice(0,6) + '...' + addr.slice(-4)
+       render badge:
+         .badge--pass  "✓ HOLDS TICKET  {truncated}"
+         .badge--fail  "✗ NO TICKET     {truncated}"
+       catch → showError(...)
+
+     // ── Venue ─────────────────────────────────────────────────
+     btn-venue-refresh → refreshVenue()
+
+     async refreshVenue():
+       Promise.all([
+         contract.methods.totalSupply().call(),
+         contract.methods.balanceOf(DEPLOYER_ADDRESS).call(),
+         web3.eth.getBalance(CONTRACT_ADDRESS)
+       ])
+       sold      = BigInt(total) - BigInt(deployerBal)  → / 1e18 for display
+       remaining = BigInt(deployerBal) / BigInt(10n**18n)
+       contractEth = web3.utils.fromWei(contractBalance, 'ether')
+       render table / dl of 4 values
+       catch → showError(...)
+
+     ---
+     Files modified
+
+     ┌──────┬────────────────────┬──────────────────────────────────────────────
+     ┐
+     │ Step │        File        │                    Action
+     │
+     ├──────┼────────────────────┼──────────────────────────────────────────────
+     ┤
+     │ 1    │ js/config.js       │ Update comment, address, add
+     │
+     │      │                    │ DEPLOYER_ADDRESS, swap ABI
+     │
+     ├──────┼────────────────────┼──────────────────────────────────────────────
+     ┤
+     │ 2    │ css/styles.css     │ Append role-tab + badge CSS
+     │
+     ├──────┼────────────────────┼──────────────────────────────────────────────
+     ┤
+     │ 2    │ pages/balance.html │ Full rewrite (was 19-line stub)
+     │
+     ├──────┼────────────────────┼──────────────────────────────────────────────
+     ┤
+     │ 2    │ js/balance.js      │ Full implementation (was 1-line stub)
+     │
+     └──────┴────────────────────┴──────────────────────────────────────────────
+     ┘
+
+     ---
+     Verification
+
+     1. Open pages/balance.html in browser (file:// or local server).
+     2. Attendee: paste 0x31447Cb490216109B1D49096793A3a4268827FfB (purchaser
+     address from deployments.md) → should show SETH balance + ticket count ≥ 0.
+     3. Attendee empty address: button should be disabled.
+     4. Attendee bad address: 0xdeadbeef → friendly error toast, no RPC call.
+     5. Doorman: paste same address → green badge if tickets held, red if not.
+     6. Doorman truncation: badge shows 0x3144...7FfB pattern.
+     7. Venue: click Refresh → displays totalSupply (1e20 = 100 tokens), sold
+     count, remaining, contract ETH balance.
+     8. RPC error simulation: temporarily set RPC_URL to a bad URL → friendly
+     error toast appears.
+
+⏺ Starting Step 1 — js/config.js only.
+
+⏺ Write(js/config.js)
+  ⎿  Added 81 lines, removed 50 lines
+       1 -// V3 of TicketToken — adds buyTicket() (payable, fixed price, 
+         -CEI ordered,                                                   
+       2 -// inline allowance manipulation). Deployed and verified on Sep
+         -olia.                                                          
+       3 -// Successful buy tx: 0x47f4b755f3d8317b9726e425519cdb619c59d64
+         -358eea2679d7f1f842db17217                                      
+       1 +// V4 of TicketToken — final contract version, no further itera
+         +tions expected.                                                
+       2 +// Security additions vs V3:                                   
+       3 +//   - withdraw(): owner pull pattern; deployer calls to drain 
+         +accumulated SETH.                                              
+       4 +//     Uses low-level .call{value: balance}("") rather than .tr
+         +ansfer() to avoid                                              
+       5 +//     the 2300 gas cap that breaks smart-contract wallets.    
+       6 +//   - Manual nonReentrant modifier (no OpenZeppelin import) ap
+         +plied to both                                                  
+       7 +//     buyTicket and withdraw. _status uses constants 1/2 (NOT_
+         +ENTERED/ENTERED)                                               
+       8 +//     so every guarded call pays the cheaper warm SSTORE (5k g
+         +as) not the cold                                               
+       9 +//     one (20k gas) that a 0/1 scheme would incur on first cal
+         +l.                                                             
+      10 +//   - Emits Withdrawn(deployer, amount) event on successful wi
+         +thdrawal.                                                      
+      11 +// Deployment tx: 0x85786fc20431c6ac55e740b2a8b45d02fa99c0c6602
+         +e0516a2d86e96ee599916                                          
+      12  //
+      13  // This file is the single source of truth for all front-end pa
+          ges.
+      14  // Update CONTRACT_ADDRESS and ABI here whenever a new version 
+          is deployed.
+      15  
+       8 -const CONTRACT_ADDRESS = "0x04c7aA0AaFE789F10bC239383839469DA74
+         -FdB59";                                                        
+      16 +const CONTRACT_ADDRESS = "0x705D6c204a755e51b517bBA9124e3F23Dc9
+         +F88C2";                                                        
+      17  const RPC_URL = "https://rpc.sepolia.org";
+      18  
+      19 +// NOTE: DEPLOYER_ADDRESS duplicates the contract's private _de
+         +ployer immutable.                                              
+      20 +// In a production version we would expose a deployer() public 
+         +getter on the                                                  
+      21 +// contract and read it from chain via contract.methods.deploye
+         +r().call().                                                    
+      22 +// Hardcoding here is a deliberate scope decision for this subm
+         +ission — adding                                                
+      23 +// a getter would require a V5 deploy with full re-setup (appro
+         +ve, top-up, etc).                                              
+      24 +const DEPLOYER_ADDRESS = "0x4c6A154131C03f5A60BEA08Ae2099f42014
+         +5c3dB";                                                        
+      25 +                                                               
+      26  const ABI = [
+      27    {
+      28      "inputs": [
+      14 -      { "internalType": "string", "name": "_name", "type": "str
+         -ing" },                                                        
+      15 -      { "internalType": "string", "name": "_symbol", "type": "s
+         -tring" },                                                      
+      16 -      { "internalType": "uint256", "name": "initialSupply", "ty
+         -pe": "uint256" },                                              
+      29 +      { "internalType": "string",  "name": "_name",        "typ
+         +e": "string"  },                                               
+      30 +      { "internalType": "string",  "name": "_symbol",      "typ
+         +e": "string"  },                                               
+      31 +      { "internalType": "uint256", "name": "initialSupply","typ
+         +e": "uint256" },                                               
+      32        { "internalType": "uint256", "name": "_ticketPrice", "typ
+          e": "uint256" }
+      33      ],
+      34      "stateMutability": "nonpayable",
+     ...
+      37    {
+      38      "anonymous": false,
+      39      "inputs": [
+      25 -      { "indexed": true, "internalType": "address", "name": "ow
+         -ner", "type": "address" },                                     
+      26 -      { "indexed": true, "internalType": "address", "name": "sp
+         -ender", "type": "address" },                                   
+      27 -      { "indexed": false, "internalType": "uint256", "name": "v
+         -alue", "type": "uint256" }                                     
+      40 +      { "indexed": true,  "internalType": "address", "name": "o
+         +wner",   "type": "address" },                                  
+      41 +      { "indexed": true,  "internalType": "address", "name": "s
+         +pender", "type": "address" },                                  
+      42 +      { "indexed": false, "internalType": "uint256", "name": "v
+         +alue",   "type": "uint256" }                                   
+      43      ],
+      44      "name": "Approval",
+      45      "type": "event"
+      46    },
+      47    {
+      48 +    "inputs": [                                                
+      49 +      { "internalType": "address", "name": "spender", "type": "
+         +address" },                                                    
+      50 +      { "internalType": "uint256", "name": "amount",  "type": "
+         +uint256" }                                                     
+      51 +    ],                                                         
+      52 +    "name": "approve",                                         
+      53 +    "outputs": [{ "internalType": "bool", "name": "", "type": "
+         +bool" }],                                                      
+      54 +    "stateMutability": "nonpayable",                           
+      55 +    "type": "function"                                         
+      56 +  },                                                           
+      57 +  {                                                            
+      58 +    "inputs": [],                                              
+      59 +    "name": "buyTicket",                                       
+      60 +    "outputs": [],                                             
+      61 +    "stateMutability": "payable",                              
+      62 +    "type": "function"                                         
+      63 +  },                                                           
+      64 +  {                                                            
+      65 +    "inputs": [                                                
+      66 +      { "internalType": "address", "name": "recipient", "type":
+         + "address" },                                                  
+      67 +      { "internalType": "uint256", "name": "amount",    "type":
+         + "uint256" }                                                   
+      68 +    ],                                                         
+      69 +    "name": "transfer",                                        
+      70 +    "outputs": [{ "internalType": "bool", "name": "", "type": "
+         +bool" }],                                                      
+      71 +    "stateMutability": "nonpayable",                           
+      72 +    "type": "function"                                         
+      73 +  },                                                           
+      74 +  {                                                            
+      75      "anonymous": false,
+      76      "inputs": [
+      35 -      { "indexed": true, "internalType": "address", "name": "fr
+         -om", "type": "address" },                                      
+      36 -      { "indexed": true, "internalType": "address", "name": "to
+         -", "type": "address" },                                        
+      77 +      { "indexed": true,  "internalType": "address", "name": "f
+         +rom",  "type": "address" },                                    
+      78 +      { "indexed": true,  "internalType": "address", "name": "t
+         +o",    "type": "address" },                                    
+      79        { "indexed": false, "internalType": "uint256", "name": "v
+          alue", "type": "uint256" }
+      80      ],
+      81      "name": "Transfer",
+     ...
+       83    },
+       84    {
+       85      "inputs": [
+       44 -      { "internalType": "address", "name": "owner", "type": "a
+          -ddress" },                                                    
+       45 -      { "internalType": "address", "name": "spender", "type": 
+          -"address" }                                                   
+       86 +      { "internalType": "address", "name": "sender",    "type"
+          +: "address" },                                                
+       87 +      { "internalType": "address", "name": "recipient", "type"
+          +: "address" },                                                
+       88 +      { "internalType": "uint256", "name": "amount",    "type"
+          +: "uint256" }                                                 
+       89      ],
+       47 -    "name": "allowance",                                      
+       48 -    "outputs": [{ "internalType": "uint256", "name": "", "type
+          -": "uint256" }],                                              
+       49 -    "stateMutability": "view",                                
+       90 +    "name": "transferFrom",                                   
+       91 +    "outputs": [{ "internalType": "bool", "name": "", "type": 
+          +"bool" }],                                                    
+       92 +    "stateMutability": "nonpayable",                          
+       93      "type": "function"
+       94    },
+       95    {
+       96 +    "inputs": [],                                             
+       97 +    "name": "withdraw",                                       
+       98 +    "outputs": [],                                            
+       99 +    "stateMutability": "nonpayable",                          
+      100 +    "type": "function"                                        
+      101 +  },                                                          
+      102 +  {                                                           
+      103 +    "anonymous": false,                                       
+      104      "inputs": [
+       54 -      { "internalType": "address", "name": "spender", "type": 
+          -"address" },                                                  
+       55 -      { "internalType": "uint256", "name": "amount", "type": "
+          -uint256" }                                                    
+      105 +      { "indexed": false, "internalType": "address", "name": "
+          +deployer", "type": "address" },                               
+      106 +      { "indexed": false, "internalType": "uint256", "name": "
+          +amount",   "type": "uint256" }                                
+      107      ],
+       57 -    "name": "approve",                                        
+       58 -    "outputs": [{ "internalType": "bool", "name": "", "type": 
+          -"bool" }],                                                    
+       59 -    "stateMutability": "nonpayable",                          
+      108 +    "name": "Withdrawn",                                      
+      109 +    "type": "event"                                           
+      110 +  },                                                          
+      111 +  {                                                           
+      112 +    "inputs": [                                               
+      113 +      { "internalType": "address", "name": "owner",   "type": 
+          +"address" },                                                  
+      114 +      { "internalType": "address", "name": "spender", "type": 
+          +"address" }                                                   
+      115 +    ],                                                        
+      116 +    "name": "allowance",                                      
+      117 +    "outputs": [{ "internalType": "uint256", "name": "", "type
+          +": "uint256" }],                                              
+      118 +    "stateMutability": "view",                                
+      119      "type": "function"
+      120    },
+      121    {
+     ...
+      127    },
+      128    {
+      129      "inputs": [],
+       71 -    "name": "buyTicket",                                      
+       72 -    "outputs": [],                                            
+       73 -    "stateMutability": "payable",                             
+       74 -    "type": "function"                                        
+       75 -  },                                                          
+       76 -  {                                                           
+       77 -    "inputs": [],                                             
+      130      "name": "decimals",
+      131      "outputs": [{ "internalType": "uint8", "name": "", "type":
+            "uint8" }],
+      132      "stateMutability": "view",
+     ...
+      159      "outputs": [{ "internalType": "uint256", "name": "", "type
+           ": "uint256" }],
+      160      "stateMutability": "view",
+      161      "type": "function"
+      110 -  },                                                          
+      111 -  {                                                           
+      112 -    "inputs": [                                               
+      113 -      { "internalType": "address", "name": "recipient", "type"
+          -: "address" },                                                
+      114 -      { "internalType": "uint256", "name": "amount", "type": "
+          -uint256" }                                                    
+      115 -    ],                                                        
+      116 -    "name": "transfer",                                       
+      117 -    "outputs": [{ "internalType": "bool", "name": "", "type": 
+          -"bool" }],                                                    
+      118 -    "stateMutability": "nonpayable",                          
+      119 -    "type": "function"                                        
+      120 -  },                                                          
+      121 -  {                                                           
+      122 -    "inputs": [                                               
+      123 -      { "internalType": "address", "name": "sender", "type": "
+          -address" },                                                   
+      124 -      { "internalType": "address", "name": "recipient", "type"
+          -: "address" },                                                
+      125 -      { "internalType": "uint256", "name": "amount", "type": "
+          -uint256" }                                                    
+      126 -    ],                                                        
+      127 -    "name": "transferFrom",                                   
+      128 -    "outputs": [{ "internalType": "bool", "name": "", "type": 
+          -"bool" }],                                                    
+      129 -    "stateMutability": "nonpayable",                          
+      130 -    "type": "function"                                        
+      162    }
+      163  ];
+
+⏺ Step 1 done. js/config.js is now V4: new address, DEPLOYER_ADDRESS with the
+  scope-comment, and the 16-entry ABI including withdraw + Withdrawn.
+
+  ---
+  Now Step 2 — three files, keeping the diff separate as requested.
+
+⏺ Update(css/styles.css)
+  ⎿  Added 92 lines
+      204    border-color: var(--error-border);
+      205    color: var(--error-text);
+      206  }
+      207 +                                                              
+      208 +/* ── Role tabs (balance page) ───────────────────────────────
+          + */                                                           
+      209 +.role-tabs {                                                  
+      210 +  display: flex;                                              
+      211 +  border: 1px solid var(--border);                            
+      212 +  border-radius: var(--radius);                               
+      213 +  overflow: hidden;                                           
+      214 +  margin-bottom: 24px;                                        
+      215 +}                                                             
+      216 +                                                              
+      217 +.role-tabs label {                                            
+      218 +  flex: 1;                                                    
+      219 +  text-align: center;                                         
+      220 +  padding: 9px 12px;                                          
+      221 +  font-size: 0.875rem;                                        
+      222 +  font-weight: 500;                                           
+      223 +  cursor: pointer;                                            
+      224 +  background: var(--surface);                                 
+      225 +  color: var(--text-muted);                                   
+      226 +  transition: background 0.15s, color 0.15s;                  
+      227 +  border-right: 1px solid var(--border);                      
+      228 +  user-select: none;                                          
+      229 +}                                                             
+      230 +                                                              
+      231 +.role-tabs label:last-child { border-right: none; }           
+      232 +                                                              
+      233 +.role-tabs input[type="radio"] {                              
+      234 +  position: absolute;                                         
+      235 +  opacity: 0;                                                 
+      236 +  width: 0;                                                   
+      237 +  height: 0;                                                  
+      238 +}                                                             
+      239 +                                                              
+      240 +.role-tabs label.active {                                     
+      241 +  background: var(--accent);                                  
+      242 +  color: #fff;                                                
+      243 +}                                                             
+      244 +                                                              
+      245 +/* ── Doorman badge ──────────────────────────────────────────
+          + */                                                           
+      246 +.badge {                                                      
+      247 +  display: block;                                             
+      248 +  text-align: center;                                         
+      249 +  padding: 28px 16px;                                         
+      250 +  border-radius: var(--radius);                               
+      251 +  font-size: 2rem;                                            
+      252 +  font-weight: 700;                                           
+      253 +  margin-top: 16px;                                           
+      254 +  border: 2px solid;                                          
+      255 +  word-break: break-all;                                      
+      256 +}                                                             
+      257 +                                                              
+      258 +.badge--pass {                                                
+      259 +  background: var(--success-bg);                              
+      260 +  border-color: var(--success-border);                        
+      261 +  color: var(--success-text);                                 
+      262 +}                                                             
+      263 +                                                              
+      264 +.badge--fail {                                                
+      265 +  background: var(--error-bg);                                
+      266 +  border-color: var(--error-border);                          
+      267 +  color: var(--error-text);                                   
+      268 +}                                                             
+      269 +                                                              
+      270 +/* ── Venue stats grid ───────────────────────────────────────
+          + */                                                           
+      271 +.stats {                                                      
+      272 +  display: grid;                                              
+      273 +  grid-template-columns: 1fr 1fr;                             
+      274 +  gap: 12px;                                                  
+      275 +  margin-top: 16px;                                           
+      276 +}                                                             
+      277 +                                                              
+      278 +.stat {                                                       
+      279 +  background: var(--bg);                                      
+      280 +  border: 1px solid var(--border);                            
+      281 +  border-radius: var(--radius);                               
+      282 +  padding: 14px 16px;                                         
+      283 +}                                                             
+      284 +                                                              
+      285 +.stat__label {                                                
+      286 +  font-size: 0.75rem;                                         
+      287 +  font-weight: 500;                                           
+      288 +  color: var(--text-muted);                                   
+      289 +  text-transform: uppercase;                                  
+      290 +  letter-spacing: 0.04em;                                     
+      291 +  margin-bottom: 4px;                                         
+      292 +}                                                             
+      293 +                                                              
+      294 +.stat__value {                                                
+      295 +  font-size: 1.25rem;                                         
+      296 +  font-weight: 600;                                           
+      297 +  color: var(--text);                                         
+      298 +}                                                             
+
+⏺ Write(pages/balance.html)
+  ⎿  Added 50 lines, removed 2 lines
+       3  <head>
+       4    <meta charset="UTF-8" />
+       5    <meta name="viewport" content="width=device-width, initial-sc
+          ale=1.0" />
+       6 -  <title>Balance</title>                                       
+       6 +  <title>Check Balance</title>                                 
+       7    <link rel="stylesheet" href="../css/styles.css" />
+       8  </head>
+       9  <body>
+      10    <div class="page">
+      11      <div class="card">
+      12 -      <h1>Balance</h1>                                         
+      12 +      <h1>Check Balance</h1>                                   
+      13 +                                                               
+      14 +      <!-- Role selector -->                                   
+      15 +      <div class="role-tabs" id="role-tabs">                   
+      16 +        <label class="active">                                 
+      17 +          <input type="radio" name="role" value="attendee" chec
+         +ked />                                                         
+      18 +          Attendee                                             
+      19 +        </label>                                               
+      20 +        <label>                                                
+      21 +          <input type="radio" name="role" value="doorman" />   
+      22 +          Doorman                                              
+      23 +        </label>                                               
+      24 +        <label>                                                
+      25 +          <input type="radio" name="role" value="venue" />     
+      26 +          Venue                                                
+      27 +        </label>                                               
+      28 +      </div>                                                   
+      29 +                                                               
+      30 +      <!-- ── Attendee panel ─────────────────────────────── --
+         +>                                                              
+      31 +      <div id="panel-attendee">                                
+      32 +        <p>Check a wallet's SETH balance and ticket holdings.</
+         +p>                                                             
+      33 +        <div class="form-group">                               
+      34 +          <label for="att-address">Wallet Address</label>      
+      35 +          <input id="att-address" type="text" placeholder="0x…"
+         + autocomplete="off" />                                         
+      36 +        </div>                                                 
+      37 +        <button id="btn-att-check" type="button" disabled>Check
+         +</button>                                                      
+      38 +        <div id="att-result" hidden></div>                     
+      39 +      </div>                                                   
+      40 +                                                               
+      41 +      <!-- ── Doorman panel ──────────────────────────────── --
+         +>                                                              
+      42 +      <div id="panel-doorman" hidden>                          
+      43 +        <p>Verify whether a wallet holds at least one ticket.</
+         +p>                                                             
+      44 +        <div class="form-group">                               
+      45 +          <label for="door-address">Wallet Address</label>     
+      46 +          <input id="door-address" type="text" placeholder="0x…
+         +" autocomplete="off" />                                        
+      47 +        </div>                                                 
+      48 +        <button id="btn-door-check" type="button" disabled>Veri
+         +fy</button>                                                    
+      49 +        <div id="door-result" hidden></div>                    
+      50 +      </div>                                                   
+      51 +                                                               
+      52 +      <!-- ── Venue panel ────────────────────────────────── --
+         +>                                                              
+      53 +      <div id="panel-venue" hidden>                            
+      54 +        <p>Live contract state: supply, sales, and accumulated 
+         +SETH.</p>                                                      
+      55 +        <button id="btn-venue-refresh" type="button">Refresh</b
+         +utton>                                                         
+      56 +        <div id="venue-result" hidden></div>                   
+      57 +      </div>                                                   
+      58 +                                                               
+      59      </div>
+      60    </div>
+      61 +                                                               
+      62 +  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/we
+         +b3.min.js"></script>                                           
+      63    <script src="../js/config.js"></script>
+      64    <script src="../js/ui.js"></script>
+      65    <script src="../js/balance.js"></script>
+
+⏺ Write(js/balance.js)
+  ⎿  Added 169 lines, removed 1 line
+        1 -// Balance page logic                                         
+        1 +// Balance page logic — read-only, no signing, no keystore.   
+        2 +// Three role views selected by radio buttons: Attendee, Doorm
+          +an, Venue.                                                    
+        3 +// All chain reads use web3@1.10.4 via new Web3(RPC_URL) + web
+          +3.eth.Contract.                                               
+        4 +                                                              
+        5 +const web3     = new Web3(RPC_URL);                           
+        6 +const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
+        7 +                                                              
+        8 +// ── Role switching ─────────────────────────────────────────
+          +─                                                             
+        9 +                                                              
+       10 +const panels = {                                              
+       11 +  attendee: document.getElementById('panel-attendee'),        
+       12 +  doorman:  document.getElementById('panel-doorman'),         
+       13 +  venue:    document.getElementById('panel-venue'),           
+       14 +};                                                            
+       15 +                                                              
+       16 +document.getElementById('role-tabs').addEventListener('change'
+          +, function (e) {                                              
+       17 +  const selected = e.target.value;                            
+       18 +  Object.entries(panels).forEach(([role, el]) => {            
+       19 +    el.hidden = role !== selected;                            
+       20 +  });                                                         
+       21 +  document.querySelectorAll('.role-tabs label').forEach(label 
+          +=> {                                                          
+       22 +    const radio = label.querySelector('input[type="radio"]'); 
+       23 +    label.classList.toggle('active', radio.value === selected)
+          +;                                                             
+       24 +  });                                                         
+       25 +});                                                           
+       26 +                                                              
+       27 +// ── Attendee ───────────────────────────────────────────────
+          +─                                                             
+       28 +                                                              
+       29 +const attAddress = document.getElementById('att-address');    
+       30 +const btnAttCheck = document.getElementById('btn-att-check'); 
+       31 +const attResult   = document.getElementById('att-result');    
+       32 +                                                              
+       33 +attAddress.addEventListener('input', () => {                  
+       34 +  btnAttCheck.disabled = attAddress.value.trim() === '';      
+       35 +});                                                           
+       36 +                                                              
+       37 +btnAttCheck.addEventListener('click', checkAttendee);         
+       38 +                                                              
+       39 +async function checkAttendee() {                              
+       40 +  const addr = attAddress.value.trim();                       
+       41 +  if (!web3.utils.isAddress(addr)) {                          
+       42 +    showError('Invalid address — please enter a full 0x… Ether
+          +eum address.');                                               
+       43 +    return;                                                   
+       44 +  }                                                           
+       45 +                                                              
+       46 +  btnAttCheck.disabled = true;                                
+       47 +  btnAttCheck.textContent = 'Checking…';                      
+       48 +  attResult.hidden = true;                                    
+       49 +                                                              
+       50 +  try {                                                       
+       51 +    const [ethWei, ticketRaw] = await Promise.all([           
+       52 +      web3.eth.getBalance(addr),                              
+       53 +      contract.methods.balanceOf(addr).call(),                
+       54 +    ]);                                                       
+       55 +                                                              
+       56 +    const ethDisplay    = parseFloat(web3.utils.fromWei(ethWei
+          +, 'ether')).toFixed(6);                                       
+       57 +    const ticketCount   = BigInt(ticketRaw) / BigInt('10000000
+          +00000000000');                                                
+       58 +    const ticketProse   = ticketCount === 1n                  
+       59 +      ? 'You hold <strong>1 ticket</strong>.'                 
+       60 +      : ticketCount > 1n                                      
+       61 +        ? `You hold <strong>${ticketCount} tickets</strong>.` 
+       62 +        : 'You hold <strong>no tickets</strong>.';            
+       63 +                                                              
+       64 +    attResult.innerHTML =                                     
+       65 +      `<p style="margin-top:16px;color:var(--text)">          
+       66 +         SETH balance: <strong>${ethDisplay} SETH</strong>    
+       67 +       </p>                                                   
+       68 +       <p style="color:var(--text)">${ticketProse}</p>`;      
+       69 +    attResult.hidden = false;                                 
+       70 +  } catch (_) {                                               
+       71 +    showError('Sepolia RPC busy, try again in a moment.');    
+       72 +  } finally {                                                 
+       73 +    btnAttCheck.disabled = false;                             
+       74 +    btnAttCheck.textContent = 'Check';                        
+       75 +  }                                                           
+       76 +}                                                             
+       77 +                                                              
+       78 +// ── Doorman ────────────────────────────────────────────────
+          +─                                                             
+       79 +                                                              
+       80 +const doorAddress  = document.getElementById('door-address'); 
+       81 +const btnDoorCheck = document.getElementById('btn-door-check')
+          +;                                                             
+       82 +const doorResult   = document.getElementById('door-result');  
+       83 +                                                              
+       84 +doorAddress.addEventListener('input', () => {                 
+       85 +  btnDoorCheck.disabled = doorAddress.value.trim() === '';    
+       86 +});                                                           
+       87 +                                                              
+       88 +btnDoorCheck.addEventListener('click', checkDoorman);         
+       89 +                                                              
+       90 +async function checkDoorman() {                               
+       91 +  const addr = doorAddress.value.trim();                      
+       92 +  if (!web3.utils.isAddress(addr)) {                          
+       93 +    showError('Invalid address — please enter a full 0x… Ether
+          +eum address.');                                               
+       94 +    return;                                                   
+       95 +  }                                                           
+       96 +                                                              
+       97 +  btnDoorCheck.disabled = true;                               
+       98 +  btnDoorCheck.textContent = 'Checking…';                     
+       99 +  doorResult.hidden = true;                                   
+      100 +                                                              
+      101 +  try {                                                       
+      102 +    const ticketRaw = await contract.methods.balanceOf(addr).c
+          +all();                                                        
+      103 +    const hasTicket = BigInt(ticketRaw) >= BigInt('10000000000
+          +00000000');                                                   
+      104 +    const truncated = addr.slice(0, 6) + '…' + addr.slice(-4);
+      105 +                                                              
+      106 +    doorResult.innerHTML = hasTicket                          
+      107 +      ? `<div class="badge badge--pass">✓ HOLDS TICKET<br><spa
+          +n style="font-size:1rem;font-weight:500">${truncated}</span></
+          +div>`                                                         
+      108 +      : `<div class="badge badge--fail">✗ NO TICKET<br><span s
+          +tyle="font-size:1rem;font-weight:500">${truncated}</span></div
+          +>`;                                                           
+      109 +    doorResult.hidden = false;                                
+      110 +  } catch (_) {                                               
+      111 +    showError('Sepolia RPC busy, try again in a moment.');    
+      112 +  } finally {                                                 
+      113 +    btnDoorCheck.disabled = false;                            
+      114 +    btnDoorCheck.textContent = 'Verify';                      
+      115 +  }                                                           
+      116 +}                                                             
+      117 +                                                              
+      118 +// ── Venue ──────────────────────────────────────────────────
+          +─                                                             
+      119 +                                                              
+      120 +const btnVenueRefresh = document.getElementById('btn-venue-ref
+          +resh');                                                       
+      121 +const venueResult     = document.getElementById('venue-result'
+          +);                                                            
+      122 +                                                              
+      123 +btnVenueRefresh.addEventListener('click', refreshVenue);      
+      124 +                                                              
+      125 +async function refreshVenue() {                               
+      126 +  btnVenueRefresh.disabled = true;                            
+      127 +  btnVenueRefresh.textContent = 'Loading…';                   
+      128 +  venueResult.hidden = true;                                  
+      129 +                                                              
+      130 +  try {                                                       
+      131 +    const [totalRaw, deployerRaw, contractWei] = await Promise
+          +.all([                                                        
+      132 +      contract.methods.totalSupply().call(),                  
+      133 +      contract.methods.balanceOf(DEPLOYER_ADDRESS).call(),    
+      134 +      web3.eth.getBalance(CONTRACT_ADDRESS),                  
+      135 +    ]);                                                       
+      136 +                                                              
+      137 +    const ONE = BigInt('1000000000000000000');                
+      138 +    const total     = BigInt(totalRaw)    / ONE;              
+      139 +    const remaining = BigInt(deployerRaw) / ONE;              
+      140 +    const sold      = total - remaining;                      
+      141 +    const ethDisplay = parseFloat(web3.utils.fromWei(contractW
+          +ei, 'ether')).toFixed(6);                                     
+      142 +                                                              
+      143 +    venueResult.innerHTML = `                                 
+      144 +      <div class="stats">                                     
+      145 +        <div class="stat">                                    
+      146 +          <div class="stat__label">Total Supply</div>         
+      147 +          <div class="stat__value">${total}</div>             
+      148 +        </div>                                                
+      149 +        <div class="stat">                                    
+      150 +          <div class="stat__label">Tickets Sold</div>         
+      151 +          <div class="stat__value">${sold}</div>              
+      152 +        </div>                                                
+      153 +        <div class="stat">                                    
+      154 +          <div class="stat__label">Remaining</div>            
+      155 +          <div class="stat__value">${remaining}</div>         
+      156 +        </div>                                                
+      157 +        <div class="stat">                                    
+      158 +          <div class="stat__label">Contract Balance</div>     
+      159 +          <div class="stat__value">${ethDisplay} SETH</div>   
+      160 +        </div>                                                
+      161 +      </div>`;                                                
+      162 +    venueResult.hidden = false;                               
+      163 +  } catch (_) {                                               
+      164 +    showError('Sepolia RPC busy, try again in a moment.');    
+      165 +  } finally {                                                 
+      166 +    btnVenueRefresh.disabled = false;                         
+      167 +    btnVenueRefresh.textContent = 'Refresh';                  
+      168 +  }                                                           
+      169 +}                                                             
+
+⏺ Both steps done. Here's what landed:
+
+  Step 1 — js/config.js
+  - Comment block updated: V4, final version, security additions (withdraw +
+  reentrancy guard), deployment tx
+  - CONTRACT_ADDRESS → 0x705D6c204a755e51b517bBA9124e3F23Dc9F88C2
+  - DEPLOYER_ADDRESS added with the "deliberate scope decision" comment block
+  above it
+  - ABI replaced: 16 entries (V3's 14 + withdraw nonpayable + Withdrawn event)
+
+  Step 2 — pages/balance.html + js/balance.js + css/styles.css
+  - Radio tab row switches between Attendee / Doorman / Venue panels; active tab
+   highlighted in accent blue
+  - Attendee: button disabled on empty input; isAddress() guard; parallel
+  getBalance + balanceOf; prose "You hold N ticket(s) / no tickets" + SETH to
+  6dp
+  - Doorman: same input guard; big .badge--pass / .badge--fail (2rem bold,
+  green/red) with truncated address (0xAbcd…1234); no numeric balance shown
+  - Venue: no address input; totalSupply, deployer balanceOf,
+  getBalance(CONTRACT_ADDRESS) in parallel; 2×2 stats grid (Total Supply /
+  Tickets Sold / Remaining / Contract Balance)
+  - All three views: RPC errors → showError('Sepolia RPC busy, try again in a 
+  moment.'), button re-enabled in finally
+
+✻ Sautéed for 3m 20s
+
+※ recap: Config.js updated to V4 and the three-role balance page is fully built. Open balance.html in a browser and test all three panels against Sepolia to verify. (disable recaps in /config)
+
+
+Manual verification (10 steps)
+
+Page loads — no console errors, globals correct in console ✓
+Role switching — panels hide/show, active tab gets blue ✓
+Attendee, purchaser address (holds 1 ticket) → correct balance
+and "You hold 1 ticket" ✓
+Attendee, never-touched address → returns zeros not error ✓
+Attendee, empty field → Check button disabled ✓
+Attendee, malformed address (0xdeadbeef) → friendly error
+toast, no RPC call fired ✓
+Doorman, purchaser → green badge "✓ HOLDS TICKET" + truncated
+address ✓
+Doorman, empty wallet → red badge "✗ NO TICKET" ✓
+Venue refresh → grid shows 100 total supply, correct sold and
+remaining counts, contract SETH balance ✓
+Bad RPC URL simulation → friendly error toast, no raw stack
+trace ✓
