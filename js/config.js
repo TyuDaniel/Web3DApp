@@ -15,6 +15,7 @@
 
 const CONTRACT_ADDRESS = "0x705D6c204a755e51b517bBA9124e3F23Dc9F88C2";
 const RPC_URL = "https://ethereum-sepolia-rpc.publicnode.com";
+const CHAIN_ID = 11155111;
 
 // NOTE: DEPLOYER_ADDRESS duplicates the contract's private _deployer immutable.
 // In a production version we would expose a deployer() public getter on the

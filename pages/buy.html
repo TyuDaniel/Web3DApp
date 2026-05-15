@@ -8,10 +8,61 @@
 </head>
 <body>
   <div class="page">
-    <div class="card">
+    <div class="card buy-card">
+      <a href="../index.html" class="back-link">← Back</a>
       <h1>Buy Ticket</h1>
+
+      <p>Unlock your downloaded keystore locally, then buy one ticket with SETH.</p>
+
+      <div class="form-group">
+        <label for="keystore-file">Keystore JSON</label>
+        <input id="keystore-file" type="file" accept="application/json,.json" />
+      </div>
+
+      <div class="form-group">
+        <label for="keystore-password">Keystore Password</label>
+        <input id="keystore-password" type="password" autocomplete="current-password" />
+      </div>
+
+      <button id="btn-unlock" type="button" disabled>Unlock Wallet</button>
+
+      <div id="wallet-panel" hidden>
+        <div class="stats">
+          <div class="stat stat--wide">
+            <div class="stat__label">Address</div>
+            <div class="stat__value stat__value--small" id="buyer-address"></div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">SETH Balance</div>
+            <div class="stat__value" id="buyer-eth"></div>
+          </div>
+          <div class="stat">
+            <div class="stat__label">Tickets Held</div>
+            <div class="stat__value" id="buyer-tickets"></div>
+          </div>
+          <div class="stat stat--wide">
+            <div class="stat__label">Ticket Price</div>
+            <div class="stat__value" id="ticket-price"></div>
+          </div>
+        </div>
+
+        <button id="btn-buy" type="button">Buy Ticket</button>
+      </div>
+
+      <div id="state-panel" class="state-panel" aria-live="polite">
+        <div class="state-panel__label">
+          <span id="state-spinner" class="state-spinner" hidden></span>
+          <span id="state-label">Idle</span>
+        </div>
+        <div class="state-panel__detail" id="state-detail">Upload your keystore to begin.</div>
+      </div>
+
+      <div id="receipt-panel" class="receipt-panel" hidden>
+        <a id="etherscan-link" target="_blank" rel="noopener noreferrer"></a>
+      </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.4/dist/web3.min.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/buy.js"></script>
